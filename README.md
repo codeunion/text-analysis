@@ -1,4 +1,3 @@
-text-analysis
-=============
+# Analyzing Text in Ruby
 
-A Ruby program that displays various statistics about a piece of text
+To get started, visit the [the project wiki](https://github.com/codeunion/text-analysis/wiki).
