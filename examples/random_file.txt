@@ -1,0 +1,3 @@
+Hi, there!  I'm a text file.  There's nothing fancy about me. I might contain words, numbers, spaces, and many, many lines of text.  Right now I live at "random_file.txt".
+
+You can open me with your favorite text editor and edit me, if you'd like, or write a piece of software that programmatically manipulates my contents.
