@@ -1,6 +1,8 @@
 # Analyzing Text in Ruby
 
-For a detailed overview and instructions, visit the [the project wiki](https://github.com/codeunion/text-analysis/wiki).
+### For a detailed overview and instructions
+
+## [Visit The Project Wiki](https://github.com/codeunion/text-analysis/wiki).
 
 To get started, you'll need to
 
