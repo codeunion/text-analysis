@@ -36,18 +36,17 @@ def item_counts(array)
 end
 
 def print_counts(counts_hash)
-  keys_array = counts_hash.keys
-  puts "The counts for #{keys_array} are..."
   counts_hash.each do |key, value|
     puts "#{key}   #{value}"
   end
   puts
 end
-# define method(string) 
+# define method(string)
 # returns array of all characters in the string
 def string_to_array(string)
+  puts "The counts for \"#{string}\" are..."
   array = string.split(//)
-  end
+end
 # Test
 item_counts(string_to_array("The quick brown fox jumped over the lazy dog."))
 item_counts(string_to_array("111-jazzhands birkenstock!!!()*$    @@@Values__=+`~"))
