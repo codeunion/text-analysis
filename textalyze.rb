@@ -43,10 +43,18 @@ def print_counts(counts_hash)
   end
   puts
 end
+# define method(string) 
+# returns array of all characters in the string
+def string_to_array(string)
+  array = string.split(//)
+  end
 # Test
-item_counts([1,2,1,2,1])
-item_counts(["a","b","a","b","a","ZZZ"])
-item_counts([])
-item_counts(["hi", "hi", "hi"])
-item_counts([true, nil, "dinosaur"])
-item_counts(["a","a","A","A"])
+item_counts(string_to_array("The quick brown fox jumped over the lazy dog."))
+item_counts(string_to_array("111-jazzhands birkenstock!!!()*$    @@@Values__=+`~"))
+# Test
+# item_counts([1,2,1,2,1])
+# item_counts(["a","b","a","b","a","ZZZ"])
+# item_counts([])
+# item_counts(["hi", "hi", "hi"])
+# item_counts([true, nil, "dinosaur"])
+# item_counts(["a","a","A","A"])
