@@ -41,11 +41,15 @@ def print_counts(counts_hash)
   end
   puts
 end
-# define method(string)
-# returns array of all characters in the string
-def string_to_array(string)
+
+def string_to_array(string) # returns array of all characters in the string
   puts "The counts for \"#{string}\" are..."
-  array = string.split(//)
+  sanitize(string)
+  string.split(//)
+end
+
+def sanitize(string)
+  string.downcase!
 end
 # Test
 item_counts(string_to_array("The quick brown fox jumped over the lazy dog."))
