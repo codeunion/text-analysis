@@ -22,6 +22,9 @@
 #
 # In short, item_counts(array) tells us how many times each item appears
 # in the input array.
+file_contents = File.read("moby-dick.txt") # had trouble with path on cloud9 so
+# I put the file in the the directory with textalyze.rb
+# this is the path I tried: ~/workspace/sprint1/text-analysis/sample_data/moby-dick.txt
 
 def item_counts(array)
   counts = {} # Initialize counts to an empty Hash
@@ -43,7 +46,7 @@ def print_counts(counts_hash)
 end
 
 def string_to_array(string) # returns array of all characters in the string
-  puts "The counts for \"#{string}\" are..."
+  #puts "The counts for \"#{string}\" are..."
   sanitize(string)
   string.split(//)
 end
@@ -51,13 +54,8 @@ end
 def sanitize(string)
   string.downcase!
 end
-# Test
-item_counts(string_to_array("The quick brown fox jumped over the lazy dog."))
-item_counts(string_to_array("111-jazzhands birkenstock!!!()*$    @@@Values__=+`~"))
-# Test
-# item_counts([1,2,1,2,1])
-# item_counts(["a","b","a","b","a","ZZZ"])
-# item_counts([])
-# item_counts(["hi", "hi", "hi"])
-# item_counts([true, nil, "dinosaur"])
-# item_counts(["a","a","A","A"])
+# Test v.04
+item_counts(string_to_array(file_contents))
+# Test v.03
+#item_counts(string_to_array("The quick brown fox jumped over the lazy dog."))
+#item_counts(string_to_array("111-jazzhands birkenstock!!!()*$    @@@Values__=+`~"))
