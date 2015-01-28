@@ -24,13 +24,9 @@
 # in the input array.
 
 def item_counts(array)
-	counts = {}
+	counts = Hash.new(0)
 	array.each do |item|
-		if counts.include? item
-			counts[item] = counts[item] + 1
-		else
-			counts[item] = 1
-		end
+		counts[item] += 1
 	end
 	counts
 end
