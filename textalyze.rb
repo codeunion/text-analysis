@@ -1,66 +1,83 @@
-# This is the base code for v0.1 of our Ruby text analyzer.
-# Visit https://github.com/codeunion/text-analysis/wiki to see what to do.
-#
-# Send an email to your cohort mailing list if you have any questions
-# or you're stuck!  These comments are here to help you, but please delete them
-# as you go along. You wouldn't normally have such heavily-commented code.
-
-# Method name: item_counts
-# Input:   An arbitrary array
-#
-# Returns: A hash where every item is a key whose value is the number of times
-#          that item appears in the array
-#
-# Prints:  Nothing
-
-# Here are some examples:
-#     item_counts(["I", "am", "Sam", "I", "am"])
-#       # => {"I" => 2, "am" => 2, "Sam" => 1}
-#
-#     item_counts([10, 20, 10, 20, 20])
-#       # => {10 => 2, 20 => 3}
-#
-# In short, item_counts(array) tells us how many times each item appears
-# in the input array.
+require "io/console"
 
 def item_counts(array)
-  counts = {} # Initialize counts to an empty Hash
+  counts = Hash.new(0)
 
-  array.each do |item|
-    # Add code here to modify the "counts" hash accordingly
-    # You'll need to handle two cases:
-    #   1. The first time we've seen a particular item in the array
-    #   2. The second-or-later time we've seen a particular item in the array
+  array.each do |key|
+    counts[key] += 1 # Increment the key
   end
 
-  counts # This returns the "counts" hash
+  counts
 end
 
-# "p" prints something to the screen in a way that's friendlier
-# for debugging purposes than print or puts.
+def print_counts(counts_hash)
+  counts_hash.each do |key, value|
+    puts "#{key}   #{value}\n"
+  end
+end
 
-p item_counts([1,2,1,2,1]) == {1 => 3, 2 => 2}
-p item_counts(["a","b","a","b","a","ZZZ"]) == {"a" => 3, "b" => 2, "ZZZ" => 1}
-p item_counts([]) == {}
-p item_counts(["hi", "hi", "hi"]) == {"hi" => 3}
-p item_counts([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
-p item_counts(["a","a","A","A"]) == {"a" => 2, "A" => 2}
+def string_to_array(string) # returns array of all characters in the string
+  sanitize(string).split(//)
+end
 
-# Each of the lines above will print out "true" or "false" and collectively
-# act as a sanity check.  Remember that conceptually "x == y"
-# means "are x and y equal?"
-#
-# That is, when you run the code, if any lines print out "false"
-# then you know something is off in your code.
-#
-# This does *not* mean that your code is perfect if each line
-# prints out "true.""  For example,
-#   1. We might have missed a corner case
-#   2. The code does what it should, but is conceptually confused
-#   3. Something else we haven't though of
-#
-# Remember: Option #3 is *always* possible.
-#
-# Think of these like rumble strips on the side of the road.  They're here
-# to tell you when you're veering off the road, not to guarantee you're
-# driving phenomenally. :)
+def sanitize(string)
+  string.downcase.gsub(/\W+/, '') # Remove all non-word chars
+end
+
+def frequency(string)
+  hash = item_counts(string_to_array(string)) # returns counts hash
+
+  hash.each do |key, value|
+    hash[key] = value.to_f / string.size.to_f
+  end
+
+  hash
+end
+
+def scaled_value(num, range, offset)
+  # I had to look up the equation below - it feels like something
+  # I should remember from high school math. Time for a refresher?
+  # ((to_max - to_min)* (num - from_min)) / ((from_max - from_min) + to_min)
+  to_max = terminal_width(offset)
+  to_min = 0
+  from_max = range.max
+  from_min = 0
+  ((to_max - to_min) * (num - from_min)) / ((from_max - from_min) + to_min)
+end
+
+def terminal_width(offset)
+  dimensions = IO.console.winsize
+
+  dimensions[1]-offset
+end
+
+def print_histo(stats)
+  ordered_stats = stats.sort
+
+  print "Calculating letter frequencies...done"
+
+  ordered_stats.each do |key, value|
+    percent = (value*100).round(2)
+    puts
+    key_data_string = sprintf("[%s] [%5.2f%%] ", key, percent)
+    print key_data_string
+    print "="*((scaled_value(value, stats.values, key_data_string.length)))
+  end
+
+  puts
+end
+
+def file_read(argument)
+  if argument.size == 0
+    puts "You didn't tell us what file to read. Try this commmand:"
+    puts
+    puts "  ruby textalyze.rb random_file.txt"
+    exit # Exits the program
+  end
+
+  file_name = argument[0] #first argument
+
+  File.read(file_name)
+end
+
+print_histo(frequency(file_read(ARGV)))
